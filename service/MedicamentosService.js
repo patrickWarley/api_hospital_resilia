@@ -12,6 +12,7 @@
 
  router.post('/',(req, res)=>{
   const { medicamento } = req.body;
+  
   MedicamentoDAO.createMedicamento(medicamento)
   .then(result => res.json(result))
   .catch(err => {

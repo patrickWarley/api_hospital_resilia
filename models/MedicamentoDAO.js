@@ -33,8 +33,8 @@ export default {
         //shit happens
         if(err) reject(err);
 
-        const sql = `INSERT INTO ${tablename}(valor, data_validade, lote, nome, qtd_estoque) VALUES ?`;
-        con.query(sql, [...medicamento], (err, result) => {
+        const sql = `INSERT INTO ${tablename} SET ?`;
+        con.query(sql, medicamento, (err, result) => {
           if(err) reject(err);
           
           resolve(result);
