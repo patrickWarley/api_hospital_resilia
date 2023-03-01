@@ -16,7 +16,7 @@ export default {
         if(err) reject(err);
       
         const sql = 'SELECT * FROM medicamentos';
-        con.query(sql, (err, result, fields) => {
+        con.query(sql, (err, result) => {
       
           if(err) reject(err);
 
@@ -25,8 +25,21 @@ export default {
       })
     })
   },
-  executeQuery: function(){},
-  createMedicamento: function(...medicamento){
+  executeQuery: function(query){
+    return new Promise((resolve, reject) =>{
+      const con = getConnection();
+      con.connect(err =>{
+        if(err) reject(err);
+
+        con.query(query, (err, result) =>{
+          if(err) reject(err);
+
+          return resolve(result);
+        })
+      })
+    })
+  },
+  createMedicamento: function(medicamento){
     return new Promise((resolve, reject) => {
       const con = getConnection();
       con.connect(err =>{
@@ -42,6 +55,58 @@ export default {
       })    
     })
   },
-  updateMedicamento:function(){},
-  deleteMedicamento:function(){}
+  getMedicamentoById:function(id){
+    return new Promise((resolve, reject)=>{
+      const con = getConnection();
+      con.connect(err =>{
+        if(err) reject(err);
+
+        const sql= `SELECT * FROM ${tablename} WHERE id = ?`
+        con.query(sql, [id], (err, result) =>{
+          if(err) reject(err);
+          
+          resolve(result);
+        })
+      })
+    });
+  },
+  updateMedicamento:function(id, medicamento){
+    return new Promise((resolve, reject) =>{
+      const con = getConnection();
+      con.connect(err => {
+        if(err) reject(err);
+
+        const sql = `SELECT * FROM ${tablename} WHERE id = ?`
+        con.query(sql, [id], (err, result) => {
+          if(err) reject(err);
+
+          const updatedMedicamento = {...result[0], ...medicamento};
+
+          const sql2 = `UPDATE ${tablename} SET ? WHERE id=?`;
+          con.query(sql2,[updatedMedicamento, id], (err, result) => {
+            if(err) reject(err);
+
+            resolve(updatedMedicamento);
+          })
+        })
+      })
+    })
+  },
+  deleteMedicamento:function(id){
+    return new Promise((resolve, reject) =>{
+
+      //remover do estoque
+      const con = getConnection();
+      con.connect(err => {
+        if(err)reject(err);
+
+        const sql = `DELETE FROM ${tablename} WHERE id = ?`
+        con.query(sql, [id], (err, result) =>{
+          if(err) reject(err);
+          
+          resolve(result);
+        })
+      })
+    })
+  }
 }
