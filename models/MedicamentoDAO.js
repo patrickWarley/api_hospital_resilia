@@ -1,10 +1,10 @@
 import mysql from 'mysql';
-import { mysqlconfig } from '../config/mysql.config.js';
+import { mysqlconfigDev } from '../config/mysql.config.js';
 
 const tablename = "medicamentos";
 //function to get the connection with the database
 function getConnection(){
-  return mysql.createConnection(mysqlconfig)
+  return mysql.createConnection(mysqlconfigDev)
 }
 
 export default {
