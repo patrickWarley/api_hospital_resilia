@@ -4,7 +4,6 @@
  //create a router
 
  router.get('/',(req,res) =>{
-  
   MedicamentoDAO.listMedicamentos()
   .then(medicamentos =>  res.json(medicamentos))
   .catch(err =>  console.log(err));
