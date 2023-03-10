@@ -8,7 +8,7 @@ function getConnection() {
 }
 
 export default {
-  listMedicamentos: function () {
+  list: function () {
     return new Promise(function (resolve, reject) {
       const con = getConnection();
       con.connect(err => {
@@ -39,7 +39,7 @@ export default {
       })
     })
   },
-  createMedicamento: function (medicamento) {
+  create: function (medicamento) {
     return new Promise((resolve, reject) => {
       const con = getConnection();
       con.connect(err => {
@@ -55,7 +55,7 @@ export default {
       })
     })
   },
-  getMedicamentoById: function (id) {
+  getById: function (id) {
     return new Promise((resolve, reject) => {
       const con = getConnection();
       con.connect(err => {
@@ -70,7 +70,7 @@ export default {
       })
     });
   },
-  updateMedicamento: function (id, medicamento) {
+  update: function (id, medicamento) {
     return new Promise((resolve, reject) => {
       const con = getConnection();
       con.connect(err => {
@@ -92,7 +92,7 @@ export default {
       })
     })
   },
-  deleteMedicamento: function (id) {
+  delete: function (id) {
     return new Promise((resolve, reject) => {
 
       //remover do estoque

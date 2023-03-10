@@ -1,7 +1,9 @@
 import express from "express";
-import MedicamentosService from "./service/MedicamentosService.js";
 import multer from "multer";
 import cors from "cors";
+
+import MedicamentosService from "./service/MedicamentosService.js";
+import MedicosService from "./service/MedicosService.js";
 
 //necessario para recuperar o diretorio
 import { dirname } from "path";
@@ -9,7 +11,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const port = "4000";
+const port = "3000";
 
 const app = express();
 const upload = multer();
@@ -24,6 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(upload.array());
 app.use("/medicamentosAPI", MedicamentosService);
+app.use("/medicosAPI", MedicosService);
 
 //cors
 app.use(cors());

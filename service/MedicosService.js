@@ -1,5 +1,5 @@
 import express from "express";
-import MedicosDAO from "../models/MedicosDAO";
+import MedicosDAO from "../models/MedicosDAO.js";
 
 const router = express.Router();
 
@@ -8,15 +8,14 @@ const errorMsg =
 
 //create a router
 router.get("/", (req, res) => {
-  MedicosDAO.listMedicos()
+  MedicosDAO.list()
     .then((medicos) => res.json(medicos))
     .catch((err) => res.status(500).json({ error: true, mensagem: errorMsg }));
 });
 
 router.post("/", (req, res) => {
   const { medico } = req.body;
-
-  MedicosDAO.createmedico(medico)
+  MedicosDAO.create(medico)
     .then((result) =>
       res.json({ mensagem: "Medico cadastrado com sucesso!" })
     )
@@ -29,7 +28,7 @@ router.post("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const { id } = req.params;
 
-  MedicosDAO.getmedicoById(id)
+  MedicosDAO.getById(id)
     .then((medico) => res.json(medico))
     .catch((err) => {
       console.log(err);
@@ -41,7 +40,7 @@ router.get("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
-  MedicosDAO.deletemedico(id)
+  MedicosDAO.delete(id)
     .then((result) =>
       res.status(200).json({ mensagem: "Medico excluido com sucesso!" })
     )
@@ -56,7 +55,7 @@ router.put("/:id", (req, res) => {
   const { id } = req.params;
   const { medico } = req.body;
 
-  MedicosDAO.updatemedico(id, medico)
+  MedicosDAO.update(id, medico)
     .then((result) =>
       res.status(200).json({ mensagem: "Medico atualizado com sucesso!" })
     )

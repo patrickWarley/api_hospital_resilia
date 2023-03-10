@@ -7,7 +7,7 @@ const errorMsg = "Algum erro inesperado ocorreu esper alguns instantes e tente n
 
 //create a router
 router.get('/', (req, res) => {
-  MedicamentoDAO.listMedicamentos()
+  MedicamentoDAO.list()
     .then((medicamentos) => res.json(medicamentos))
     .catch((err) => res.status(500).json({ error: true, mensagem:errorMsg }));
   })
@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const { medicamento } = req.body;
 
-  MedicamentoDAO.createMedicamento(medicamento)
+  MedicamentoDAO.create(medicamento)
     .then(result => res.json({mensagem:"Medicamento cadastrado com sucesso!"}))
     .catch(err =>{
         console.log(err);
@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
 router.get('/:id', (req, res) => {
   const { id } = req.params;
 
-  MedicamentoDAO.getMedicamentoById(id)
+  MedicamentoDAO.getById(id)
     .then((medicamento) => res.json(medicamento))
     .catch((err) =>{
         console.log(err);
@@ -38,7 +38,7 @@ router.get('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
 
-  MedicamentoDAO.deleteMedicamento(id)
+  MedicamentoDAO.delete(id)
     .then(result => res.status(200).json({ mensagem: "Medicamento excluido com sucesso!" }))
     .catch(err => {
       console.log(err);
@@ -52,7 +52,7 @@ router.put('/:id', (req, res) => {
   const { id } = req.params;
   const { medicamento } = req.body;
 
-  MedicamentoDAO.updateMedicamento(id, medicamento)
+  MedicamentoDAO.update(id, medicamento)
     .then(result => res.status(200).json({mensagem: "Medicamento atualizado com sucesso!"}))
     .catch(err => {
       console.log(err)
