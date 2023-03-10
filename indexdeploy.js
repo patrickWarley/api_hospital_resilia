@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const port = "3000";
+const port = "4000";
 
 const app = express();
 const upload = multer();
