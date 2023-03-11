@@ -1,6 +1,6 @@
 CREATE TABLE medicos (
   id int(11) NOT NULL auto_increment, 
-  crm int(11) NOT NULL,
+  crm varchar(11) NOT NULL,
   nome varchar(50) NOT NULL,
   data_nascimento DATE,
   sobrenome varchar(100) NOT NULL, 
