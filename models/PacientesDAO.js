@@ -87,7 +87,7 @@ export default {
           const newData = { ...result[0], ...paciente };
 
           const setQuery = "UPDATE pacientes SET ? WHERE ID = ?";
-          con.query(setQuery, [paciente, id], (err, result) => {
+          con.query(setQuery, [newData, id], (err, result) => {
             if (err) reject(err);
 
             resolve(newData);

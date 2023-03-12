@@ -1,6 +1,6 @@
 import express from 'express';
-//import MedicamentoDAO from '../models/MedicamentoDAO.js';
-import MedicamentoDAO from '../models/MedicamentoDAOPostgres.js';
+import MedicamentoDAO from '../models/MedicamentoDAO.js';
+//import MedicamentoDAO from '../models/MedicamentoDAOPostgres.js';
 const router = express.Router();
 
 const errorMsg = "Algum erro inesperado ocorreu esper alguns instantes e tente novamente!";

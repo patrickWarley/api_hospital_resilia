@@ -34,3 +34,12 @@ CREATE TABLE pacientes(
   password varchar(50),
   PRIMARY KEY(id)
 );
+
+CREATE TABLE unidades (
+  id int(11) NOT NULL auto_increment,
+  cnpj varchar(14) NOT NULL,
+  nome varchar(50) NOT NULL,
+  endereco varchar(100) NOT NULL,
+  telefone varchar(20) NOT NULL,
+  PRIMARY KEY(id)
+);

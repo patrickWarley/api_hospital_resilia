@@ -1,5 +1,5 @@
 import express from "express";
-import MedicosDAO from "../models/MedicosDAO.js";
+import UnidadesDAO from "../models/UnidadesDAO.js";
 
 const router = express.Router();
 
@@ -8,16 +8,16 @@ const errorMsg =
 
 //create a router
 router.get("/", (req, res) => {
-  MedicosDAO.list()
-    .then((medicos) => res.json(medicos))
+  UnidadesDAO.list()
+    .then((unidades) => res.json(unidades))
     .catch((err) => res.status(500).json({ error: true, mensagem: errorMsg }));
 });
 
 router.post("/", (req, res) => {
-  const { medico } = req.body;
-  MedicosDAO.create(medico)
+  const { unidade } = req.body;
+  UnidadesDAO.create(unidade)
     .then((result) =>
-      res.json({ mensagem: "Medico cadastrado com sucesso!" })
+      res.json({ mensagem: "Unidade cadastrada com sucesso!" })
     )
     .catch((err) => {
       console.log(err);
@@ -28,8 +28,8 @@ router.post("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const { id } = req.params;
 
-  MedicosDAO.getById(id)
-    .then((medico) => res.json(medico))
+  UnidadesDAO.getById(id)
+    .then((unidade) => res.json(unidade))
     .catch((err) => {
       console.log(err);
       res.status(500).json({ error: true, mensagem: errorMsg });
@@ -40,9 +40,9 @@ router.get("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
-  MedicosDAO.delete(id)
+  UnidadesDAO.delete(id)
     .then((result) =>
-      res.status(200).json({ mensagem: "Medico excluido com sucesso!" })
+      res.status(200).json({ mensagem: "Unidade excluida com sucesso!" })
     )
     .catch((err) => {
       console.log(err);
@@ -53,13 +53,13 @@ router.delete("/:id", (req, res) => {
 //update
 router.put("/:id", (req, res) => {
   const { id } = req.params;
-  const { medico } = req.body;
+  const { unidade } = req.body;
 
-  console.log(medico);
+  console.log("SERVICE:", unidade)
 
-  MedicosDAO.update(id, medico)
+  UnidadesDAO.update(id, unidade)
     .then((result) =>
-      res.status(200).json({ mensagem: "Medico atualizado com sucesso!" })
+      res.status(200).json({ mensagem: "Unidade atualizada com sucesso!" })
     )
     .catch((err) => {
       console.log(err);
