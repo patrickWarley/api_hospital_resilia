@@ -7,17 +7,17 @@ const { Pool } = pg;
 //the decrease the amount resources you wasted openning and closing connections it may be interesting to keep a pool of available connections open.
 
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
+  user: 'patrick',
+  host: 'dpg-cg6v2mt269v5l67ko6rg-a',
   database: 'hospital_resilia',
-  password: 'oo25oo25',
+  password: 'evZLeqMbX7uYvFc5qqbVy2VYRwwMhpdS',
   port: 5432,
 });
 
 const tablename = "medicamentos";
 
 export default {
-  listMedicamentos: function () {
+  list: function () {
     return new Promise(function (resolve, reject) {
 
       const sql = 'SELECT * FROM medicamentos';
@@ -41,9 +41,9 @@ export default {
     })
   }
   ,
-  createMedicamento: function (medicamento) {
+  create: function (medicamento) {
     return new Promise((resolve, reject) => {
-      const sql = `INSERT INTO medicamentos SET nome = $1, valor =$2, lote=$3, validade=$4, qtd_estoque=$5`;
+      const sql = "INSERT INTO medicamentos(nome, valor, lote, validade,qtd_estoque) VALUES($1,$2,$3,$4,$5)";
       const values = [medicamento.nome, medicamento.valor, medicamento.lote, medicamento.validade, medicamento.qtd_estoque];
       pool.query(sql, values, (err, result) => {
         if (err) reject(err);
@@ -52,7 +52,7 @@ export default {
       });
     })
   },
-  getMedicamentoById: function (id) {
+  getById: function (id) {
     return new Promise((resolve, reject) => {
       const sql = `SELECT * FROM medicamentos WHERE id = ?`
       pool.query(sql, [id], (err, result) => {
@@ -62,14 +62,14 @@ export default {
       })
     });
   },
-  updateMedicamento: function (id, medicamento) {
+  update: function (id, medicamento) {
     return new Promise((resolve, reject) => {
       const sql = `SELECT * FROM medicamentos WHERE id = ?`
       pool.query(sql, [id], (err, result) => {
         if (err) reject(err);
 
         const updatedMedicamento = { ...result.rows[0], ...medicamento };
-        
+
         const sql2 = `INSERT INTO medicamentos SET nome = $1, valor =$2, lote=$3, validade=$4, qtd_estoque=$5 WHERE id = ?`;
         const values = [
           medicamento.nome,
@@ -88,8 +88,8 @@ export default {
       })
     })
   },
-  
-  deleteMedicamento: function (id) {
+
+  delete: function (id) {
     return new Promise((resolve, reject) => {
 
       //remover do estoque

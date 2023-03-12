@@ -1,26 +1,26 @@
 import express from 'express';
-import MedicamentoDAO from '../models/MedicamentoDAO.js';
-//import MedicamentoDAO from '../models/MedicamentoDAOPostgres.js';
+//import MedicamentoDAO from '../models/MedicamentoDAO.js';
+import MedicamentoDAO from '../models/MedicamentoDAOPostgres.js';
 const router = express.Router();
 
-const errorMsg = "Algum erro inesperado ocorreu esper alguns instantes e tente novamente!"; 
+const errorMsg = "Algum erro inesperado ocorreu esper alguns instantes e tente novamente!";
 
 //create a router
 router.get('/', (req, res) => {
   MedicamentoDAO.list()
     .then((medicamentos) => res.json(medicamentos))
-    .catch((err) => res.status(500).json({ error: true, mensagem:errorMsg }));
-  })
+    .catch((err) => res.status(500).json({ error: true, mensagem: errorMsg }));
+})
 
 router.post('/', (req, res) => {
   const { medicamento } = req.body;
 
   MedicamentoDAO.create(medicamento)
-    .then(result => res.json({mensagem:"Medicamento cadastrado com sucesso!"}))
-    .catch(err =>{
-        console.log(err);
-        res.status(500).json({ error: true, mensagem: errorMsg })
-      });
+    .then(result => res.json({ mensagem: "Medicamento cadastrado com sucesso!" }))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: true, mensagem: errorMsg })
+    });
 })
 
 router.get('/:id', (req, res) => {
@@ -28,10 +28,10 @@ router.get('/:id', (req, res) => {
 
   MedicamentoDAO.getById(id)
     .then((medicamento) => res.json(medicamento))
-    .catch((err) =>{
-        console.log(err);
-        res.status(500).json({ error: true, mensagem: errorMsg});
-      });
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: true, mensagem: errorMsg });
+    });
 });
 
 //del
@@ -42,7 +42,7 @@ router.delete('/:id', (req, res) => {
     .then(result => res.status(200).json({ mensagem: "Medicamento excluido com sucesso!" }))
     .catch(err => {
       console.log(err);
-      res.status(500).json({erro:true, mensagem:errorMsg})
+      res.status(500).json({ erro: true, mensagem: errorMsg })
     });
 
 });
@@ -53,10 +53,10 @@ router.put('/:id', (req, res) => {
   const { medicamento } = req.body;
 
   MedicamentoDAO.update(id, medicamento)
-    .then(result => res.status(200).json({mensagem: "Medicamento atualizado com sucesso!"}))
+    .then(result => res.status(200).json({ mensagem: "Medicamento atualizado com sucesso!" }))
     .catch(err => {
       console.log(err)
-      res.status(500).json({error:true, mensagem:errorMsg})
+      res.status(500).json({ error: true, mensagem: errorMsg })
     });
 });
 
