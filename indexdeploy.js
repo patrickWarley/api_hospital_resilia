@@ -4,7 +4,7 @@ import cors from "cors";
 
 import MedicamentosService from "./service/MedicamentosService.js";
 import MedicosService from "./service/MedicosService.js";
-
+import PacientesService from "./service/PacientesService.js"
 //necessario para recuperar o diretorio
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -27,11 +27,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(upload.array());
 app.use("/medicamentosAPI", MedicamentosService);
 app.use("/medicosAPI", MedicosService);
+app.use("/pacientesAPI", PacientesService);
 
 //cors
 app.use(cors());
 
-app.get("*", (req, res) =>{
+app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
 })
 // I still need to configure this server to work with react

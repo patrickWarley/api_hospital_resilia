@@ -1,7 +1,7 @@
 import mysql from "mysql";
 import { mysqlconfigDev } from "../config/mysql.config.js";
 
-const tablename = "medicos";
+const tablename = "pacientes";
 
 function getConnection() {
   return mysql.createConnection(mysqlconfigDev);
@@ -15,7 +15,7 @@ export default {
         //if there is no error execute the query
         if (err) reject(err);
 
-        const sql = "SELECT * FROM medicos";
+        const sql = "SELECT * FROM pacientes";
         con.query(sql, (err, result) => {
           if (err) reject(err);
 
@@ -38,16 +38,16 @@ export default {
       });
     });
   },
-  create: function (medico) {
+  create: function (paciente) {
     return new Promise(function (resolve, reject) {
       const con = getConnection();
       //start the connection
       con.connect(err => {
         if (err) reject(err);
 
-        const sql = "INSERT INTO medicos SET ?";
+        const sql = "INSERT INTO pacientes SET ?";
 
-        con.query(sql, medico, (err, result) => {
+        con.query(sql, paciente, (err, result) => {
           if (err) reject(err)
 
           resolve(result);
@@ -62,7 +62,7 @@ export default {
       con.connect(err => {
         if (err) reject(err);
 
-        const sql = "SELECT * FROM medicos WHERE id = ?";
+        const sql = "SELECT * FROM pacientes WHERE id = ?";
 
         con.query(sql, [id], (err, result) => {
           if (err) reject(err);
@@ -72,7 +72,7 @@ export default {
       })
     })
   },
-  update: function (id, medico) {
+  update: function (id, paciente) {
     return new Promise(function (resolve, reject) {
       const con = getConnection();
 
@@ -80,14 +80,14 @@ export default {
         if (err) reject(err);
 
         //get the old data
-        const sql = "SELECT * FROM medicos WHERE id = ?";
+        const sql = "SELECT * FROM pacientes WHERE id = ?";
         con.query(sql, [id], (err, result) => {
           if (err) reject(err);
 
-          const newData = { ...result[0], ...medico };
+          const newData = { ...result[0], ...paciente };
 
-          const setQuery = "UPDATE medicos SET ? WHERE ID = ?";
-          con.query(setQuery, [medico, id], (err, result) => {
+          const setQuery = "UPDATE pacientes SET ? WHERE ID = ?";
+          con.query(setQuery, [paciente, id], (err, result) => {
             if (err) reject(err);
 
             resolve(newData);
@@ -104,7 +104,7 @@ export default {
       con.connect(err => {
         if (err) reject(err);
 
-        const sql = `DELETE FROM medicos WHERE id = ?`
+        const sql = `DELETE FROM pacientes WHERE id = ?`
         con.query(sql, [id], (err, result) => {
           if (err) reject(err);
 
