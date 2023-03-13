@@ -6,6 +6,9 @@ import MedicamentosService from "./service/MedicamentosService.js";
 import MedicosService from "./service/MedicosService.js";
 import PacientesService from "./service/PacientesService.js";
 import UnidadesService from "./service/UnidadesService.js";
+import ExamesService from "./service/ExamesService.js";
+import ConsultasService from "./service/ConsultasService.js";
+
 
 //necessario para recuperar o diretorio
 import { dirname } from "path";
@@ -27,10 +30,14 @@ app.use(express.json());
 //forms
 app.use(express.urlencoded({ extended: true }));
 app.use(upload.array());
+
 app.use("/medicamentosAPI", MedicamentosService);
 app.use("/medicosAPI", MedicosService);
 app.use("/pacientesAPI", PacientesService);
 app.use("/unidadesAPI", UnidadesService);
+app.use("/examesAPI", ExamesService);
+app.use("/consultasAPI", ConsultasService);
+
 //cors
 app.use(cors());
 
